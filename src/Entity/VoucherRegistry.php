@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\VoucherRegistryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: VoucherRegistryRepository::class)]
 class VoucherRegistry
@@ -22,6 +23,8 @@ class VoucherRegistry
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $registerDate = null;
+
+    use TimestampableEntity;
 
     public function getId(): ?int
     {
