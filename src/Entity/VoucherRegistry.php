@@ -10,7 +10,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 #[ORM\Entity(repositoryClass: VoucherRegistryRepository::class)]
 class VoucherRegistry
 {
-    public function __construct(string $user, Voucher $voucher, \DateTime $date)
+    public function __construct(string $user, string $voucher, \DateTime $date)
     {
         $this->userName = $user;
         $this->voucher = $voucher;
@@ -25,8 +25,8 @@ class VoucherRegistry
     #[ORM\Column(length: 255)]
     private ?string $userName = null;
 
-    #[ORM\Column(type: Types::OBJECT)]
-    private ?object $voucher = null;
+    #[ORM\Column(length: 255)]
+    private ?string $voucher = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $registerDate = null;
@@ -50,12 +50,12 @@ class VoucherRegistry
         return $this;
     }
 
-    public function getVoucher(): ?object
+    public function getVoucher(): ?string
     {
         return $this->voucher;
     }
 
-    public function setVoucher(object $voucher): self
+    public function setVoucher(string $voucher): self
     {
         $this->voucher = $voucher;
 

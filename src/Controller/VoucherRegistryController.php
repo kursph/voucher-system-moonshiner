@@ -26,10 +26,24 @@ class VoucherRegistryController extends AbstractController
         $user = $request->request->get('userName');
         $voucher = $entityManager->getRepository(Voucher::class)->find($id);
 
-        $voucherRegistry = new VoucherRegistry('test', $voucher, new \DateTime());
+        $voucherRegistry = new VoucherRegistry('test', $id, new \DateTime());
+
+        $entityManager->persist($voucherRegistry);
+        $entityManager->flush();
 
         $this->addFlash('success', 'Voucher Added!');
 
         return $this->redirectToRoute('app_index');
+    }
+
+    #[Route('/voucher/registry/list', name: 'app_voucher_registry_list')]
+    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $userName = $request->request->get('userName');
+        $vouchersList = $entityManager->getRepository(VoucherRegistry::class)->findBy(['userName' => $userName]);
+
+        return $this->render('voucher_registry/list.html.twig', [
+            'vouchersList' => $vouchersList,
+        ]);
     }
 }

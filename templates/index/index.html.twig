@@ -39,4 +39,10 @@
     </table>
     <a href="{{ path('app_voucher_create') }}" class="btn btn-primary">Create new voucher</a>
     <a href="{{ path('app_voucher_type_create') }}" class="btn btn-primary">Create new voucher type</a>
+    <form action="{{ url('app_voucher_registry_list') }}" method="POST">
+        <label for="userName">
+            <input type="text" name="userName" id="userName">
+        </label>
+        <button type="submit" class="btn btn-secondary">List your vouchers</button>
+    </form>
 {% endblock %}
