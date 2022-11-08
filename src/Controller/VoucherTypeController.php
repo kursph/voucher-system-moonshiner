@@ -12,14 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VoucherTypeController extends AbstractController
 {
-    #[Route('/voucher/type', name: 'app_voucher_type')]
-    public function index(): Response
-    {
-        return $this->render('voucher_type/index.html.twig', [
-            'controller_name' => 'VoucherTypeController',
-        ]);
-    }
-
     #[Route('/voucher/type/create', name: 'app_voucher_type_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {

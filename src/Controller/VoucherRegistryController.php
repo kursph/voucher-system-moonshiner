@@ -12,14 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VoucherRegistryController extends AbstractController
 {
-    #[Route('/voucher/registry', name: 'app_voucher_registry')]
-    public function index(): Response
-    {
-        return $this->render('voucher_registry/index.html.twig', [
-            'controller_name' => 'VoucherRegistryController',
-        ]);
-    }
-
     #[Route('/voucher/registry/{id}/add', name: 'app_voucher_registry_add')]
     public function add(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
