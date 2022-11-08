@@ -10,6 +10,13 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 #[ORM\Entity(repositoryClass: VoucherRegistryRepository::class)]
 class VoucherRegistry
 {
+    public function __construct(string $user, Voucher $voucher, \DateTime $date)
+    {
+        $this->userName = $user;
+        $this->voucher = $voucher;
+        $this->registerDate = $date;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <table class="table">
         <thead>
             <tr>
@@ -11,22 +16,26 @@
                 <th scope="col">Permanent</th>
                 <th scope="col">Valid until</th>
                 <th scope="col">Type</th>
+                <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
-            {% for voucher in vouchers %}
-            <tr>
-                <th scope="row">{{ voucher.id }}</th>
-                <td>{{ voucher.title }}</td>
-                <td>{{ voucher.description }}</td>
-                <td>{{ voucher.amount }}</td>
-                {% set permanentText = voucher.permanent ? 'yes' : 'no' %}
-                <td>{{ permanentText }}</td>
-                <td>{{ voucher.validUntil|date('Y-m-d') }}</td>
-                <td>{{ voucher.type.name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        {% if vouchers is defined %}
+            <tbody>
+                {% for voucher in vouchers %}
+                <tr>
+                    <th scope="row">{{ voucher.id }}</th>
+                    <td>{{ voucher.title }}</td>
+                    <td>{{ voucher.description }}</td>
+                    <td>{{ voucher.amount }}</td>
+                    {% set permanentText = voucher.permanent ? 'yes' : 'no' %}
+                    <td>{{ permanentText }}</td>
+                    <td>{{ voucher.validUntil|date('Y-m-d') }}</td>
+                    <td>{{ voucher.type.name }}</td>
+                    <td><a href="{{ path('app_voucher_registry_add', { 'id': voucher.id }) }}" class="btn btn-primary">Add</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        {% endif %}
     </table>
     <a href="{{ path('app_voucher_create') }}" class="btn btn-primary">Create new voucher</a>
     <a href="{{ path('app_voucher_type_create') }}" class="btn btn-primary">Create new voucher type</a>
