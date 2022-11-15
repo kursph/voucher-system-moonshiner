@@ -8,7 +8,7 @@ final class RuleEngine
 
     public function __construct()
     {
-        $this->addRule(fn($fact) => $fact->getTotalAmountVouchers() > 3, 'You can not create more than 3 vouchers per type!');
+        $this->addRule(fn($fact) => $fact->getTotalAmountVouchers() >= 3, 'You can not create more than 3 vouchers per type!');
     }
 
     public function addRule(callable $rule, string $message): void

@@ -43,4 +43,17 @@ class VoucherController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/voucher/delete/{id}', name: 'app_voucher_delete')]
+    public function delete(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $voucher = $entityManager->getRepository(Voucher::class)->find($id);
+
+        $entityManager->remove($voucher);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Voucher Deleted!');
+
+        return $this->redirectToRoute('app_index');
+    }
 }

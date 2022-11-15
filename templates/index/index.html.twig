@@ -22,6 +22,7 @@
                 <th scope="col">Valid until</th>
                 <th scope="col">Type</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         {% if vouchers is defined and vouchers != null %}
@@ -37,6 +38,7 @@
                     <td>{{ voucher.validUntil|date('Y-m-d') }}</td>
                     <td>{{ voucher.type.name }}</td>
                     <td><a href="{{ path('app_voucher_registry_add', { 'id': voucher.id }) }}" class="btn btn-primary">Add</a></td>
+                    <td><a href="{{ path('app_voucher_delete', { 'id': voucher.id }) }}" class="btn btn-danger">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
