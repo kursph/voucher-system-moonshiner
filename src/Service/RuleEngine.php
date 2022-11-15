@@ -6,25 +6,28 @@ final class RuleEngine
 {
     private array $rules = [];
 
-    public function __invoke()
+    public function __construct()
     {
-        // insert rule generation here
+        $this->addRule(fn($fact) => $fact->getTotalAmountVouchers() > 3, 'You can not create more than 3 vouchers per type!');
     }
 
-    public function addRule(callable $rule): void
+    public function addRule(callable $rule, string $message): void
     {
-        $this->rules[] = $rule;
+        $this->rules[] = [
+            'rule' => $rule,
+            'message' => $message,
+        ];
     }
 
-    public function validateAny($fact): bool
+    public function validateAny($fact): ?string
     {
         foreach ($this->rules as $rule) {
-            if ($rule($fact)) {
-                return true;
+            if ($rule['rule']($fact)) {
+                return $rule['message'];
             }
         }
 
-        return false;
+        return null;
     }
 
     public function validateAll($fact): bool
