@@ -33,6 +33,11 @@ class VoucherType
         $this->vouchers = new ArrayCollection();
     }
 
+    public function getTotalAmountVouchers(): int
+    {
+        return $this->vouchers->count();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
