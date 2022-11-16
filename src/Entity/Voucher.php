@@ -33,7 +33,7 @@ class Voucher
     private ?\DateTimeInterface $validFrom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $validUntil = null;
+    private ?\DateTimeInterface $validUntil;
 
     #[ORM\ManyToOne(inversedBy: 'vouchers')]
     #[ORM\JoinColumn(nullable: false)]
