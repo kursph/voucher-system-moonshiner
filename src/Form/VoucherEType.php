@@ -75,7 +75,7 @@ class VoucherEType extends AbstractType
                 ],
             ])
             ->add('amount', NumberType::class, [
-                'label' => 'Amount',
+                'label' => 'Amount in %',
                 'label_attr' => [
                     'class' => 'form-label text-black',
                 ],
