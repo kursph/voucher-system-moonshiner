@@ -39,6 +39,38 @@ class VoucherRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllValid(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.validFrom <= :now')
+            ->setParameter('now', new \DateTime())
+            ->andWhere('v.validUntil >= :now')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllPending(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.validFrom > :now')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllExpired(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.validUntil < :now')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Voucher[] Returns an array of Voucher objects
 //     */

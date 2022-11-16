@@ -44,6 +44,13 @@
             </tbody>
         {% endif %}
     </table>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ path('app_index_type', { 'type': 'valid' }) }}" class="btn btn-success">Valid</a>
+            <a href="{{ path('app_index_type', { 'type': 'pending' }) }}" class="btn btn-warning">Pending</a>
+            <a href="{{ path('app_index_type', { 'type': 'expired' }) }}" class="btn btn-danger">Expired</a>
+        </div>
+    </div>
     <div class="d-flex justify-content-center">
         <a href="{{ path('app_voucher_create') }}" class="btn btn-primary">Create new voucher</a>
         <a href="{{ path('app_voucher_type_create') }}" class="btn btn-primary">Create new voucher type</a>

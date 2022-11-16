@@ -12,6 +12,11 @@ class Voucher
 {
     use TimestampableEntity;
 
+    public function __construct()
+    {
+        $this->validFrom = new \DateTime();
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -30,7 +35,7 @@ class Voucher
     private ?bool $permanent = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $validFrom = null;
+    private ?\DateTimeInterface $validFrom;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $validUntil;
