@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
 
 class VoucherEType extends AbstractType
 {
@@ -34,6 +37,17 @@ class VoucherEType extends AbstractType
                 'row_attr' => [
                     'class' => 'col-12',
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a title',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'max' => 255,
+                        'minMessage' => 'Your title should be at least {{ limit }} characters',
+                        'maxMessage' => 'Your title cannot be longer than {{ limit }} characters',
+                    ]),
+                ],
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
@@ -48,9 +62,20 @@ class VoucherEType extends AbstractType
                 'row_attr' => [
                     'class' => 'col-12',
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a description',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'max' => 255,
+                        'minMessage' => 'Your description should be at least {{ limit }} characters',
+                        'maxMessage' => 'Your description cannot be longer than {{ limit }} characters',
+                    ]),
+                ],
             ])
             ->add('amount', NumberType::class, [
-                'label' => 'Amount',
+                'label' => 'Amount in %',
                 'label_attr' => [
                     'class' => 'form-label text-black',
                 ],
@@ -61,6 +86,15 @@ class VoucherEType extends AbstractType
                 ],
                 'row_attr' => [
                     'class' => 'col-12',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter an amount',
+                    ]),
+                    new Type([
+                        'type' => 'numeric',
+                        'message' => 'The value {{ value }} is not a valid {{ type }}',
+                    ]),
                 ],
             ])
             ->add('permanent', CheckboxType::class, [
@@ -94,12 +128,17 @@ class VoucherEType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label text-black',
                 ],
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                 ],
                 'row_attr' => [
                     'class' => 'col-12',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a valid until date',
+                    ]),
                 ],
             ])
             ->add('type', EntityType::class, [

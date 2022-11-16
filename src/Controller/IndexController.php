@@ -20,4 +20,26 @@ class IndexController extends AbstractController
             'vouchers' => $vouchers,
         ]);
     }
+
+    #[Route('/index/{type}', name: 'app_index_type')]
+    public function indexByType(Request $request, EntityManagerInterface $entityManager, string $type): Response
+    {
+        switch ($type) {
+            case 'valid':
+                $vouchers = $entityManager->getRepository(Voucher::class)->findAllValid();
+                break;
+            case 'pending':
+                $vouchers = $entityManager->getRepository(Voucher::class)->findAllPending();
+                break;
+            case 'expired':
+                $vouchers = $entityManager->getRepository(Voucher::class)->findAllExpired();
+                break;
+            default:
+                $this->redirectToRoute('app_index');
+        }
+
+        return $this->render('index/index.html.twig', [
+            'vouchers' => $vouchers,
+        ]);
+    }
 }

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VoucherTypeRepository::class)]
 class VoucherType
@@ -20,9 +21,15 @@ class VoucherType
     use TimestampableEntity;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(
+        message: 'Please enter a title',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+        message: 'Please enter a description',
+    )]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Voucher::class, orphanRemoval: true)]

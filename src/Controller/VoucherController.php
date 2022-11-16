@@ -25,15 +25,15 @@ class VoucherController extends AbstractController
         $ruleEngine = new RuleEngine();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $errorMessage = $ruleEngine->validateAny($voucher->getType());
+            $check = $ruleEngine->validateAny($voucher->getType());
 
-            if ($ruleEngine->validateAny($voucher->getType()) == null) {
+            if ($check == null) {
                 $entityManager->persist($voucher);
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Voucher Created!');
             } else {
-                $this->addFlash('error', 'Voucher Not Created! ' . $errorMessage);
+                $this->addFlash('error', 'Voucher Not Created! ' . $check['message']);
             }
 
             return $this->redirectToRoute('app_index');

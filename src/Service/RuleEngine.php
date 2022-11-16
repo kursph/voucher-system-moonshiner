@@ -19,11 +19,11 @@ final class RuleEngine
         ];
     }
 
-    public function validateAny($fact): ?string
+    public function validateAny($fact)
     {
         foreach ($this->rules as $rule) {
             if ($rule['rule']($fact)) {
-                return $rule['message'];
+                return $rule;
             }
         }
 

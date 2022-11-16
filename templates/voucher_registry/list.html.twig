@@ -6,17 +6,21 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Voucher ID</th>
-            <th scope="col">Registration Date</th>
+            <th scope="col">Registry date</th>
+            <th scope="col">Valid until</th>
+            <th scope="col">Amount in %</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        {% for persVoucher in vouchersList %}
-            <tr>
-                <th scope="row">{{ persVoucher.id }}</th>
-                <td>{{ persVoucher.voucher }}</td>
-                <td>{{ persVoucher.registerDate|date('Y-m-d') }}</td>
-                <td><a href="" class="btn btn-danger">Delete</a>
+        {% for voucher in vouchersList %}
+            <tr class="bg-{% if voucher_registry_check_if_valid(voucher) %}success{% else %}danger{% endif %}">
+                <td>{{ voucherRegistries[loop.index0].id }}</td>
+                <td>{{ voucher.id }}</td>
+                <td>{{ voucherRegistries[loop.index0].registerDate|date('Y-m-d') }}</td>
+                <td>{{ voucher.validUntil|date('Y-m-d') }}</td>
+                <td>{{ voucher.amount }}</td>
+                <td><a href="{{ path('app_voucher_registry_delete', { 'id': voucherRegistries[loop.index0].id }) }}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         {% endfor %}
