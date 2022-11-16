@@ -47,7 +47,21 @@ class VoucherRegistryController extends AbstractController
         $vouchersList = $this->voucherRegistryHelper->getVouchersList($voucherRegistries);
 
         return $this->render('voucher_registry/list.html.twig', [
+            'voucherRegistries' => $voucherRegistries,
             'vouchersList' => $vouchersList,
         ]);
+    }
+
+    #[Route('/voucher/registry/{id}/delete', name: 'app_voucher_registry_delete')]
+    public function delete(Request $request, int $id): Response
+    {
+        $userName = $request->request->get('userName');
+        $voucherRegistry = $this->entityManager->getRepository(VoucherRegistry::class)->findOneBy(['id' => $id]);
+        $this->entityManager->remove($voucherRegistry);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Voucher Registry Deleted!');
+
+        return $this->redirectToRoute('app_index');
     }
 }
