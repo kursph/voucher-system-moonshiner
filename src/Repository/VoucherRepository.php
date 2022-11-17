@@ -46,6 +46,7 @@ class VoucherRepository extends ServiceEntityRepository
             ->setParameter('now', new \DateTime())
             ->andWhere('v.validUntil >= :now')
             ->setParameter('now', new \DateTime())
+            ->orWhere('v.permanent = true')
             ->getQuery()
             ->getResult()
         ;
@@ -66,6 +67,7 @@ class VoucherRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v')
             ->andWhere('v.validUntil < :now')
             ->setParameter('now', new \DateTime())
+            ->andWhere('v.permanent = false')
             ->getQuery()
             ->getResult()
         ;
