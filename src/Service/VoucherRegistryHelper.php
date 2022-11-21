@@ -10,7 +10,7 @@ class VoucherRegistryHelper
     {
         $now = new \DateTime();
 
-        return $now >= $voucher->getValidFrom() && $now <= $voucher->getValidUntil();
+        return ($now >= $voucher->getValidFrom() && $now <= $voucher->getValidUntil()) || $voucher->isPermanent();
     }
 
     public function getVouchersList(array $voucherRegistries): array
