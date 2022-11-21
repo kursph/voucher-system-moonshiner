@@ -154,6 +154,11 @@ class VoucherEType extends AbstractType
                 'row_attr' => [
                     'class' => 'col-md-12',
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a type',
+                    ]),
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit',
